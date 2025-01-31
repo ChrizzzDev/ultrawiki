@@ -99,99 +99,52 @@ model Weapon {
 // -----------------------------------------
 //                  COMMUNITY
 // -----------------------------------------
-
-// model Account {
-//   accountId String @id @db.VarChar(36)
-//   userId    String @db.VarChar(5)
-//   user      User   @relation(fields: [UserId], references: [UserId], onDelete: Cascade)
-
-//   @@unique([UserId])
-// }
-
-// model User {
-//   id    String    @id @db.VarChar(5)
-//   username  String    @db.VarChar(18)
-//   password  String    @db.Char(60)
-//   role      User_Role @default(User)
-//   email     String    @db.VarChar(255)
-//   emailVerified DateTime
-//   token     String?   @db.VarChar(255)
-//   createdAt DateTime? @db.Timestamp(0)
-//   updatedAt DateTime
-//   post      Post?
-//   Account   Account?  @relation
-//   Session   Session[]
-
-//   @@unique([Token, email])
-// }
-
 model User {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
+  googleId      String?   @unique
   name          String
   email         String
-  emailVerified DateTime @db.Date
-  password      String
+  /// @kyselyType(Date)
+  emailVerified DateTime?
+  password      String?
   image         String?
-  account       Account?
-  session       Session?
+  sessions      Session[]
 
   Post Post?
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String  @unique
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        BigInt?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model Session {
-  id           String   @id @default(cuid()) @db.VarChar(36)
-  userId       String   @unique
-  sessionToken String   @unique @db.VarChar(255)
-  expires      DateTime @db.Date
+  id        String   @id
+  userId    String   @unique
+  /// @kyselyType(Date)
+  expiresAt DateTime
 
   User User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model VerificationToken {
-  id         String   @id @default(cuid()) @db.VarChar(36)
-  identifier String   @db.VarChar(255)
-  token      String   @unique @db.VarChar(255)
-  expires    DateTime @db.Date
-
-  @@index([identifier])
-}
-
 model Post {
-  PostId    BigInt    @id @db.UnsignedBigInt
-  Title     String    @db.VarChar(255)
-  Tags      String    @db.VarChar(255)
-  Content   String    @db.VarChar(255)
-  File      File?
-  User      User      @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  PostId  BigInt @id @db.UnsignedBigInt
+  Title   String @db.VarChar(255)
+  Tags    String @db.VarChar(255)
+  Content String @db.VarChar(255)
+  File    File?
+  User    User   @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  /// @kyselyType(Date)
   createdAt DateTime? @db.Timestamp(0)
-  updatedAt DateTime
+  updatedAt DateTime  @updatedAt
 
   authorId String @unique
 }
 
 model File {
-  Id         BigInt   @id @db.UnsignedBigInt
-  Name       String   @db.VarChar(30)
-  Type       String   @db.VarChar(30)
-  Size       Int      @db.UnsignedInt
-  Content    Bytes    @db.MediumBlob
+  Id      BigInt @id @db.UnsignedBigInt
+  Name    String @db.VarChar(30)
+  Type    String @db.VarChar(30)
+  Size    Int    @db.UnsignedInt
+  Content Bytes  @db.MediumBlob
+
+  /// @kyselyType(Date)
   uploadedAt DateTime @db.Timestamp(0)
   Post       Post     @relation(fields: [postId], references: [PostId], onDelete: Cascade, onUpdate: NoAction)
 

@@ -1,10 +1,6 @@
 <script lang="ts">
-  // import { focusTrap } from '@skeletonlabs/skeleton';
-  import { signIn } from '@auth/sveltekit/client';
-
   let email = $state('');
   let password = $state('');
-  let isFocused = true;
 
   const isEmailValid = () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -14,8 +10,6 @@
   const isPasswordValid = () => {
     return password.length >= 8 && password.length <= 32;
   }
-
-  const callbackUrl = '/';
 </script>
 <style>
   .img-bg {
@@ -53,6 +47,9 @@
   >
     <form 
       class="form-container bg-surface-700 variant-glass-surface max-w-400 p-8 rounded-xl shadow-[0_4px_20px] shadow-red-950" 
+      onsubmit={(e) => {
+        e.preventDefault();
+      }}
     >
       <h1 class="text-center mb-4 vcr text-5xl">SIGN IN</h1>
       <div class="mt-4">
@@ -85,10 +82,9 @@
       </div>
       <div class="flex mt-4 justify-center items-center">
         <button 
-          type="button"
+          type="submit"
           class="btn variant-ghost-primary transition-transform duration-200 ease-in-out hover:scale-110 hover:variant-filled-primary"
           disabled={!isEmailValid() || !isPasswordValid()}
-          onclick={() => signIn('credentials', { email, password, callbackUrl })}
         >Sign In</button>
       </div>
       <div class="text-center  mt-4">
@@ -99,14 +95,14 @@
         <div class="px-3 text-stone-600">OR</div>
         <div class="border-t border-stone-800 flex-grow"></div>
       </div>
-      <button
+      <a
         type="button"
-        onclick={() => signIn('google', { callbackUrl })}
         class="btn bg-neutral-300 p-2 mt-4 w-full text-black text-sm*2 h-10"
         aria-label="Sign in with Google"
+        href="/login/google"
       >
       Sign In with <iconify-icon icon="logos:google" class="mt-1 ml-1"></iconify-icon>
-    </button>
+    </a>
     </form>
   </div>
 </main>

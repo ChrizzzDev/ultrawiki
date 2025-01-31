@@ -7,8 +7,8 @@
 	let { data }: PageProps = $props();
 
 	// Importar imágenes dinámicamente
-	const imageModule = async (name: string) =>
-		await import(`../../lib/assets/icons/levels/${name}.webp`);
+	const imageModule = async (id: string) =>
+		await import(`../../lib/assets/icons/levels/${id}.webp`);
 
 	// Mapeo de capas (layers)
 	const layers: { [key: string]: string } = {
@@ -59,7 +59,7 @@
 			{#each Object.entries(layers) as [layerName, layerLevels]}
 				<div class="mb-8">
 					<!-- Layer: Alineado al centro -->
-					<h3 class="vcr mb-6 text-center text-2xl font-semibold text-red-500">
+					<h3 class="vcr mb-6 text-center text-2xl font-semibold text-white">
 						{layerName.toUpperCase()}
 					</h3>
 
@@ -74,7 +74,7 @@
 								<div
 									class="variant-ghost-surface mx-auto w-full max-w-[280px] rounded-xl bg-gray-700 p-4 transition-colors hover:bg-neutral-800"
 								>
-									{#await imageModule(level.Name)}
+									{#await imageModule(level.LevelId)}
 										<div class="h-56 w-full animate-pulse rounded-lg bg-neutral-800"></div>
 									{:then { default: src }}
 										<img

@@ -3,7 +3,6 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
-export type AdapterAccountType = "oauth" | "oidc" | "email" | "webauthn"
 
 export const Enemy_Category = {
     Lesser: "Lesser",
@@ -48,26 +47,12 @@ export const User_Role = {
     Admin: "Admin"
 } as const;
 export type User_Role = (typeof User_Role)[keyof typeof User_Role];
-export type Account = {
-    id: string;
-    userId: string;
-    type: AdapterAccountType;
-    provider: string;
-    providerAccountId: string;
-    refresh_token: string | undefined;
-    access_token: string | undefined;
-    expires_at: number | undefined;
-    token_type: Lowercase<string> | undefined;
-    scope: string | undefined;
-    id_token: string | undefined;
-    session_state: string | undefined;
-};
 export type AltWeapon = {
     WeaponId: number;
     Name: string;
     Type: AltWeapon_Type;
     Damage: string;
-    AltDmg: string | undefined;
+    AltDmg: string | null;
     Cooldown: string;
     Extras: string;
     original: number;
@@ -75,7 +60,7 @@ export type AltWeapon = {
 };
 export type Enemy = {
     Name: string;
-    Category: Enemy_Category | undefined;
+    Category: Enemy_Category | null;
     Race: Enemy_Race;
     Weigth: Enemy_Weigth;
     /**
@@ -85,11 +70,11 @@ export type Enemy = {
     /**
      * @kyselyType ( import('./_t.ts').Attacks )
      */
-    Attacks: unknown | undefined;
+    Attacks: unknown | null;
     /**
      * @kyselyType ( import('./_t.ts').Attacks )
      */
-    DamageModifiers: unknown | undefined;
+    DamageModifiers: unknown | null;
     DebutId: string;
 };
 export type File = {
@@ -98,6 +83,9 @@ export type File = {
     Type: string;
     Size: number;
     Content: Buffer;
+    /**
+     * @kyselyType(Date)
+     */
     uploadedAt: Date;
     postId: number;
 };
@@ -105,9 +93,9 @@ export type Level = {
     LevelId: string;
     Name: string;
     Act: string;
-    Secret: string;
-    PRank: string;
-    Challenge: string;
+    Secret: string | null;
+    PRank: string | null;
+    Challenge: string | null;
 };
 export type LevelEnemy = {
     Quantity: number;
@@ -119,15 +107,20 @@ export type Post = {
     Title: string;
     Tags: string;
     Content: string;
-    createdAt: Date | undefined;
-    updatedAt: Date;
+    /**
+     * @kyselyType(Date)
+     */
+    createdAt: Date | null;
+    updatedAt: Timestamp;
     authorId: string;
 };
 export type Session = {
     id: string;
     userId: string;
-    sessionToken: string;
-    expires: Date;
+    /**
+     * @kyselyType(Date)
+     */
+    expiresAt: Date;
 };
 export type Style = {
     StyleId: Generated<number>;
@@ -139,17 +132,15 @@ export type Style = {
 };
 export type User = {
     id: string;
+    googleId: string | null;
     name: string;
     email: string;
-    emailVerified: Date;
-    password: string;
-    image: string | undefined;
-};
-export type VerificationToken = {
-    id: string;
-    identifier: string;
-    token: string;
-    expires: Date;
+    /**
+     * @kyselyType(Date)
+     */
+    emailVerified: Date | null;
+    password: string | null;
+    image: string | null;
 };
 export type Weapon = {
     WeaponId: number;
@@ -163,7 +154,6 @@ export type Weapon = {
     obtainedIn: string;
 };
 export type DB = {
-    Account: Account;
     AltWeapon: AltWeapon;
     Enemy: Enemy;
     File: File;
@@ -173,6 +163,5 @@ export type DB = {
     Session: Session;
     Style: Style;
     User: User;
-    VerificationToken: VerificationToken;
     Weapon: Weapon;
 };
