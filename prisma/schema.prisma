@@ -1,0 +1,242 @@
+generator kysely {
+  provider = "prisma-kysely"
+  output   = "."
+  fileName = "types.ts"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// -----------------------------------------
+//                   WIKI
+// -----------------------------------------
+
+model AltWeapon {
+  WeaponId Int            @id @db.UnsignedTinyInt
+  Name     String         @db.VarChar(30)
+  Type     AltWeapon_Type
+  Damage   Decimal        @db.Decimal(4, 2)
+  AltDmg   Decimal?       @db.Decimal(4, 2)
+  Cooldown Decimal        @db.Decimal(5, 3)
+  Extras   String         @db.VarChar(255)
+
+  Original Weapon @relation(fields: [original], references: [WeaponId], onDelete: Cascade, onUpdate: NoAction)
+
+  Obtained Level @relation(fields: [obtainedIn], references: [LevelId])
+
+  original   Int    @unique @db.UnsignedTinyInt
+  obtainedIn String @unique @db.VarChar(3)
+}
+
+model Enemy {
+  Name            String          @id @db.VarChar(50)
+  Category        Enemy_Category?
+  Race            Enemy_Race
+  Weigth          Enemy_Weigth
+  /// @kyselyType ( import('./_t.ts').Health )
+  Health          Json
+  /// @kyselyType ( import('./_t.ts').Attacks )
+  Attacks         Json?
+  /// @kyselyType ( import('./_t.ts').Attacks )
+  DamageModifiers Json?
+  Level           Level           @relation(fields: [DebutId], references: [LevelId], onDelete: NoAction, onUpdate: NoAction)
+  LevelEnemy      LevelEnemy[]
+
+  DebutId String @unique @db.Char(3)
+}
+
+model Level {
+  LevelId    String       @id @db.Char(3)
+  Name       String       @db.VarChar(50)
+  Act        String       @db.VarChar(50)
+  Secret     String?      @db.VarChar(30)
+  PRank      String?      @db.VarChar(30)
+  Challenge  String?      @db.VarChar(255)
+  Enemy      Enemy?
+  LevelEnemy LevelEnemy[]
+  AltWeapon  AltWeapon?
+  Weapon     Weapon?
+}
+
+model LevelEnemy {
+  Quantity Int   @db.UnsignedTinyInt
+  Enemy    Enemy @relation(fields: [EnemyId], references: [Name])
+  Level    Level @relation(fields: [LevelId], references: [LevelId])
+
+  LevelId String @db.Char(3)
+  EnemyId String @db.VarChar(50)
+
+  @@id([LevelId, EnemyId])
+  @@index([EnemyId], map: "LevelEnemy_EnemyId_fkey")
+}
+
+model Style {
+  StyleId Int     @id @default(autoincrement()) @db.UnsignedTinyInt
+  Name    String  @db.VarChar(30)
+  Color   String  @db.VarChar(30)
+  Ordinal String  @db.VarChar(20)
+  Points  Int     @db.UnsignedMediumInt
+  Decay   Decimal @db.Decimal(10, 2)
+}
+
+model Weapon {
+  WeaponId  Int         @id @db.UnsignedTinyInt
+  Name      String      @db.VarChar(30)
+  Type      Weapon_Type
+  Damage    Decimal     @db.Decimal(4, 2)
+  AltDmg    Decimal     @db.Decimal(4, 2)
+  Cooldown  Decimal     @db.Decimal(5, 3)
+  Extras    String      @db.VarChar(255)
+  Price     Int         @db.UnsignedMediumInt
+  AltWeapon AltWeapon?
+  Obtained  Level       @relation(fields: [obtainedIn], references: [LevelId], onDelete: NoAction, onUpdate: NoAction)
+
+  obtainedIn String @unique @db.VarChar(3)
+}
+
+// -----------------------------------------
+//                  COMMUNITY
+// -----------------------------------------
+
+// model Account {
+//   accountId String @id @db.VarChar(36)
+//   userId    String @db.VarChar(5)
+//   user      User   @relation(fields: [UserId], references: [UserId], onDelete: Cascade)
+
+//   @@unique([UserId])
+// }
+
+// model User {
+//   id    String    @id @db.VarChar(5)
+//   username  String    @db.VarChar(18)
+//   password  String    @db.Char(60)
+//   role      User_Role @default(User)
+//   email     String    @db.VarChar(255)
+//   emailVerified DateTime
+//   token     String?   @db.VarChar(255)
+//   createdAt DateTime? @db.Timestamp(0)
+//   updatedAt DateTime
+//   post      Post?
+//   Account   Account?  @relation
+//   Session   Session[]
+
+//   @@unique([Token, email])
+// }
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String
+  emailVerified DateTime @db.Date
+  password      String
+  image         String?
+  account       Account?
+  session       Session?
+
+  Post Post?
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @unique
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        BigInt?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id           String   @id @default(cuid()) @db.VarChar(36)
+  userId       String   @unique
+  sessionToken String   @unique @db.VarChar(255)
+  expires      DateTime @db.Date
+
+  User User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  id         String   @id @default(cuid()) @db.VarChar(36)
+  identifier String   @db.VarChar(255)
+  token      String   @unique @db.VarChar(255)
+  expires    DateTime @db.Date
+
+  @@index([identifier])
+}
+
+model Post {
+  PostId    BigInt    @id @db.UnsignedBigInt
+  Title     String    @db.VarChar(255)
+  Tags      String    @db.VarChar(255)
+  Content   String    @db.VarChar(255)
+  File      File?
+  User      User      @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  createdAt DateTime? @db.Timestamp(0)
+  updatedAt DateTime
+
+  authorId String @unique
+}
+
+model File {
+  Id         BigInt   @id @db.UnsignedBigInt
+  Name       String   @db.VarChar(30)
+  Type       String   @db.VarChar(30)
+  Size       Int      @db.UnsignedInt
+  Content    Bytes    @db.MediumBlob
+  uploadedAt DateTime @db.Timestamp(0)
+  Post       Post     @relation(fields: [postId], references: [PostId], onDelete: Cascade, onUpdate: NoAction)
+
+  postId BigInt @unique @db.UnsignedBigInt
+}
+
+enum Enemy_Category {
+  Lesser
+  Greater
+  Supreme
+}
+
+enum AltWeapon_Type {
+  Slab
+  ImpactHammer
+  SawbladeLauncher
+}
+
+enum Weapon_Type {
+  Arm
+  Revolver
+  Shotgun
+  Nailgun
+  Railcannon
+  RocketLauncher
+}
+
+enum Enemy_Race {
+  Husk
+  Machine
+  Demon
+  Angel
+  Unknown
+  PrimeSoul
+}
+
+enum Enemy_Weigth {
+  Light
+  Medium
+  Heavy
+  Superheavy
+}
+
+enum User_Role {
+  User
+  Mod
+  Admin
+}

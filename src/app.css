@@ -1,0 +1,26 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@font-face {
+  font-family: 'VCR';
+  src: url('/src/lib/assets/fonts/VCR_OSD_MONO.ttf');
+}
+
+@font-face {
+  font-family: 'Broshkill';
+  src: url('/src/lib/assets/fonts/BroshKill-Regular.otf');
+}
+
+.dark body { background: #121212; }
+
+.vcr {
+  font-family: 'VCR', monospace;
+  font-display: swap;
+}
+
+.broshkill {
+  font-family: Broshkill;
+  font-display: swap;
+  font-weight: 400;
+}
