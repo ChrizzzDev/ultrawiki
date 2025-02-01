@@ -12,7 +12,8 @@ export default {
 		join(
 			require.resolve('@skeletonlabs/skeleton'),
 			'../**/*.{html,js,ts,svelte}'
-		)
+		),
+		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'
 	],
 	theme: {
 		extend: {},
@@ -23,6 +24,7 @@ export default {
 	},
 
 	plugins: [
+		require('flowbite/plugin'),
 		typography, 
 		forms, 
 		skeleton({

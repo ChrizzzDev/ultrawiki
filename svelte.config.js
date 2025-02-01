@@ -16,11 +16,6 @@ const config = {
 		alias: {
 			'db': './src/lib/server/database.ts',
 			'dbt': './prisma/index.ts'
-		},
-		csp: {
-			directives: {
-				'default-src': ['self']
-			}
 		}
 	},
 

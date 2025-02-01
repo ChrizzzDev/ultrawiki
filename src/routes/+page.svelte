@@ -27,7 +27,7 @@
 </div>
 
 <!-- Main Content -->
-<main class="text-center">
+<main class="text-center mt-56">
 	<section>
 		<big>
 			<big>

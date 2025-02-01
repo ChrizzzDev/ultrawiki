@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
+	
 	let email = $state('');
 	let password = $state('');
   let confirmPassword = $state('');
@@ -19,9 +21,8 @@
 	<div class="container flex h-[100vh] items-center justify-center">
 		<form
 			class="form-container max-w-400 variant-glass-surface rounded-xl bg-surface-700 p-8 shadow-[0_4px_20px] shadow-red-950"
-			onsubmit={(e) => {
-				e.preventDefault();
-			}}
+			method="post"
+			action="?/login"
 		>
 			<h1 class="vcr mb-4 text-center text-5xl">SIGN UP</h1>
 			<div class="mt-4">
@@ -87,7 +88,7 @@
 				aria-label="Sign in with Google"
 				href="/login/google"
 			>
-				Sign In with <iconify-icon icon="logos:google" class="ml-1 mt-1"></iconify-icon>
+				Sign In with <Icon icon="logos:google" class="ml-1 mt-1"></Icon>
 			</a>
 		</form>
 	</div>

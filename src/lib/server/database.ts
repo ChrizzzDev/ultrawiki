@@ -11,11 +11,15 @@ const dialect = new MysqlDialect({
 
 const kysely = new Kysely<DB>({ dialect })
 
-export async function searchUser(email: string) {
+// export async function searchUser({ email }: { email: string; username?: string })
+export async function searchUser({ email, username }: { email?: string; username?: string; }) {
   return await kysely
     .selectFrom('User')
-    .where('email', '=', email)
-    .select(['email', 'password'])
+    .where((eb) => eb.or([
+      eb('email', '=', email!),
+      eb('name', '=', username!)
+    ]))
+    .selectAll()
     .executeTakeFirst();
 }
 

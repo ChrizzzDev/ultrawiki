@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Icon from '@iconify/svelte';
+
   let email = $state('');
   let password = $state('');
 
@@ -14,7 +16,7 @@
 <style>
   .img-bg {
     background-image: url('/src/lib/assets/background.png');
-    background-size: cover;
+    background-size: 100%;
     background-position: center;
   }
 
@@ -47,9 +49,8 @@
   >
     <form 
       class="form-container bg-surface-700 variant-glass-surface max-w-400 p-8 rounded-xl shadow-[0_4px_20px] shadow-red-950" 
-      onsubmit={(e) => {
-        e.preventDefault();
-      }}
+      method="post"
+      action="?/google"
     >
       <h1 class="text-center mb-4 vcr text-5xl">SIGN IN</h1>
       <div class="mt-4">
@@ -63,6 +64,7 @@
           id="email"
           placeholder="example@domain.com"
           autocomplete="email"
+          disabled
           bind:value={email}
         />
       </div>
@@ -76,6 +78,7 @@
             id="password" 
             placeholder="********"
             autocomplete="current-password"
+            disabled
             bind:value={password}
           >
         </label>
@@ -101,7 +104,7 @@
         aria-label="Sign in with Google"
         href="/login/google"
       >
-      Sign In with <iconify-icon icon="logos:google" class="mt-1 ml-1"></iconify-icon>
+      Sign In with <Icon icon="logos:google" class="mt-1 ml-1"></Icon>
     </a>
     </form>
   </div>

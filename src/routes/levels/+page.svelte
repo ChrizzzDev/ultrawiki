@@ -67,33 +67,32 @@
 					<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
 						{#each layerLevels as level, index}
 							{@const slug = level.Name.replace(/\s+/g, '_')}
-							<div
-								class="{layerLevels.length === 2 && index === 0 ? 'md:col-start-1' : ''}
-										{layerLevels.length === 2 && index === 1 ? 'md:col-start-4' : ''}"
-							>
+							<a href="/levels/{slug}" class="block">
 								<div
-									class="variant-ghost-surface mx-auto w-full max-w-[280px] rounded-xl bg-gray-700 p-4 transition-colors hover:bg-neutral-800"
+									class="{layerLevels.length === 2 && index === 0 ? 'md:col-start-1' : ''}
+											{layerLevels.length === 2 && index === 1 ? 'md:col-start-4' : ''}"
 								>
-									{#await imageModule(level.LevelId)}
-										<div class="h-56 w-full animate-pulse rounded-lg bg-neutral-800"></div>
-									{:then { default: src }}
-										<img
-											{src}
-											alt={level.Name}
-											class="mb-4 h-56 w-full rounded-lg object-cover"
-											draggable="false"
-										/>
-									{:catch}
-										<div class="text-center text-red-500">Error loading image</div>
-									{/await}
-									<a
-										href="/levels/{slug}"
-										class="vcr block text-center text-lg font-medium text-white transition-colors hover:text-red-500"
+									<div
+										class="variant-ghost-surface mx-auto w-full max-w-[280px] rounded-xl bg-gray-700 p-4 transition-colors hover:bg-neutral-800"
 									>
-										{level.Name}
-									</a>
+										{#await imageModule(level.LevelId)}
+											<div class="h-56 w-full animate-pulse rounded-lg bg-neutral-800"></div>
+										{:then { default: src }}
+											<img
+												{src}
+												alt={level.Name}
+												class="mb-4 h-56 w-full rounded-lg object-cover"
+												draggable="false"
+											/>
+										{:catch}
+											<div class="text-center text-red-500">Error loading image</div>
+										{/await}
+										<span class="vcr block text-center text-lg font-medium text-white transition-colors hover:text-red-500">
+											{level.Name}
+										</span>
+									</div>
 								</div>
-							</div>
+							</a>
 						{/each}
 					</div>
 				</div>
