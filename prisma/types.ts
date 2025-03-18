@@ -64,30 +64,18 @@ export type Enemy = {
     Race: Enemy_Race;
     Weigth: Enemy_Weigth;
     /**
-     * @kyselyType ( import('./_t.ts').Health )
+     * / @kyselyType ( import('./_t.ts).Health )
      */
     Health: unknown;
     /**
-     * @kyselyType ( import('./_t.ts').Attacks )
+     * / @kyselyType ( import('./_t.ts).Attacks )
      */
     Attacks: unknown | null;
     /**
-     * @kyselyType ( import('./_t.ts').Attacks )
+     * / @kyselyType ( import('./_t.ts).Attacks )
      */
     DamageModifiers: unknown | null;
     DebutId: string;
-};
-export type File = {
-    Id: number;
-    Name: string;
-    Type: string;
-    Size: number;
-    Content: Buffer;
-    /**
-     * @kyselyType(Date)
-     */
-    uploadedAt: Date;
-    postId: number;
 };
 export type Level = {
     LevelId: string;
@@ -102,26 +90,6 @@ export type LevelEnemy = {
     LevelId: string;
     EnemyId: string;
 };
-export type Post = {
-    PostId: number;
-    Title: string;
-    Tags: string;
-    Content: string;
-    /**
-     * @kyselyType(Date)
-     */
-    createdAt: Date | null;
-    updatedAt: Timestamp;
-    authorId: string;
-};
-export type Session = {
-    id: string;
-    userId: string;
-    /**
-     * @kyselyType(Date)
-     */
-    expiresAt: Date;
-};
 export type Style = {
     StyleId: Generated<number>;
     Name: string;
@@ -129,18 +97,6 @@ export type Style = {
     Ordinal: string;
     Points: number;
     Decay: string;
-};
-export type User = {
-    id: string;
-    googleId: string | null;
-    name: string;
-    email: string;
-    /**
-     * @kyselyType(Date)
-     */
-    emailVerified: Date | null;
-    password: string | null;
-    image: string | null;
 };
 export type Weapon = {
     WeaponId: number;
@@ -156,12 +112,8 @@ export type Weapon = {
 export type DB = {
     AltWeapon: AltWeapon;
     Enemy: Enemy;
-    File: File;
     Level: Level;
     LevelEnemy: LevelEnemy;
-    Post: Post;
-    Session: Session;
     Style: Style;
-    User: User;
     Weapon: Weapon;
 };

@@ -14,20 +14,20 @@ datasource db {
 // -----------------------------------------
 
 model AltWeapon {
-  WeaponId Int            @id @db.UnsignedTinyInt
-  Name     String         @db.VarChar(30)
+  WeaponId Int            @id
+  Name     String
   Type     AltWeapon_Type
-  Damage   Decimal        @db.Decimal(4, 2)
-  AltDmg   Decimal?       @db.Decimal(4, 2)
-  Cooldown Decimal        @db.Decimal(5, 3)
-  Extras   String         @db.VarChar(255)
+  Damage   Decimal
+  AltDmg   Decimal?
+  Cooldown Decimal
+  Extras   String
 
   Original Weapon @relation(fields: [original], references: [WeaponId], onDelete: Cascade, onUpdate: NoAction)
 
   Obtained Level @relation(fields: [obtainedIn], references: [LevelId])
 
-  original   Int    @unique @db.UnsignedTinyInt
-  obtainedIn String @unique @db.VarChar(3)
+  original   Int    @db.UnsignedTinyInt @unique
+  obtainedIn String
 }
 
 model Enemy {
@@ -35,29 +35,29 @@ model Enemy {
   Category        Enemy_Category?
   Race            Enemy_Race
   Weigth          Enemy_Weigth
-  /// @kyselyType ( import('./_t.ts').Health )
+  //// @kyselyType ( import('./_t.ts).Health )
   Health          Json
-  /// @kyselyType ( import('./_t.ts').Attacks )
+  //// @kyselyType ( import('./_t.ts).Attacks )
   Attacks         Json?
-  /// @kyselyType ( import('./_t.ts').Attacks )
+  //// @kyselyType ( import('./_t.ts).Attacks )
   DamageModifiers Json?
   Level           Level           @relation(fields: [DebutId], references: [LevelId], onDelete: NoAction, onUpdate: NoAction)
   LevelEnemy      LevelEnemy[]
 
-  DebutId String @unique @db.Char(3)
+  DebutId String
 }
 
 model Level {
   LevelId    String       @id @db.Char(3)
   Name       String       @db.VarChar(50)
   Act        String       @db.VarChar(50)
-  Secret     String?      @db.VarChar(30)
-  PRank      String?      @db.VarChar(30)
+  Secret     String?      @db.VarChar(20)
+  PRank      String?      @db.VarChar(20)
   Challenge  String?      @db.VarChar(255)
-  Enemy      Enemy?
+  Enemy      Enemy[]
   LevelEnemy LevelEnemy[]
-  AltWeapon  AltWeapon?
-  Weapon     Weapon?
+  AltWeapon  AltWeapon[]
+  Weapon     Weapon[]
 }
 
 model LevelEnemy {
@@ -76,7 +76,7 @@ model Style {
   StyleId Int     @id @default(autoincrement()) @db.UnsignedTinyInt
   Name    String  @db.VarChar(30)
   Color   String  @db.VarChar(30)
-  Ordinal String  @db.VarChar(20)
+  Ordinal String  @db.VarChar(30)
   Points  Int     @db.UnsignedMediumInt
   Decay   Decimal @db.Decimal(10, 2)
 }
@@ -88,67 +88,12 @@ model Weapon {
   Damage    Decimal     @db.Decimal(4, 2)
   AltDmg    Decimal     @db.Decimal(4, 2)
   Cooldown  Decimal     @db.Decimal(5, 3)
-  Extras    String      @db.VarChar(255)
+  Extras    String      
   Price     Int         @db.UnsignedMediumInt
   AltWeapon AltWeapon?
   Obtained  Level       @relation(fields: [obtainedIn], references: [LevelId], onDelete: NoAction, onUpdate: NoAction)
 
-  obtainedIn String @unique @db.VarChar(3)
-}
-
-// -----------------------------------------
-//                  COMMUNITY
-// -----------------------------------------
-model User {
-  id            String    @id @default(cuid())
-  googleId      String?   @unique
-  name          String
-  email         String
-  /// @kyselyType(Date)
-  emailVerified DateTime?
-  password      String?
-  image         String?
-  sessions      Session[]
-
-  Post Post?
-}
-
-model Session {
-  id        String   @id
-  userId    String   @unique
-  /// @kyselyType(Date)
-  expiresAt DateTime
-
-  User User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Post {
-  PostId  BigInt @id @db.UnsignedBigInt
-  Title   String @db.VarChar(255)
-  Tags    String @db.VarChar(255)
-  Content String @db.VarChar(255)
-  File    File?
-  User    User   @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  /// @kyselyType(Date)
-  createdAt DateTime? @db.Timestamp(0)
-  updatedAt DateTime  @updatedAt
-
-  authorId String @unique
-}
-
-model File {
-  Id      BigInt @id @db.UnsignedBigInt
-  Name    String @db.VarChar(30)
-  Type    String @db.VarChar(30)
-  Size    Int    @db.UnsignedInt
-  Content Bytes  @db.MediumBlob
-
-  /// @kyselyType(Date)
-  uploadedAt DateTime @db.Timestamp(0)
-  Post       Post     @relation(fields: [postId], references: [PostId], onDelete: Cascade, onUpdate: NoAction)
-
-  postId BigInt @unique @db.UnsignedBigInt
+  obtainedIn String     @db.VarChar(3)
 }
 
 enum Enemy_Category {
