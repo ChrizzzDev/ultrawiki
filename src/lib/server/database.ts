@@ -5,7 +5,7 @@ import type { DB } from 'dbt';
 
 const dialect = new MysqlDialect({
   pool: createPool({
-    uri: "mysql://local_pc:T3$3SJtGmmf@40.233.17.145:3306/ultrawiki"
+    uri: DATABASE_URL
   })
 })
 
