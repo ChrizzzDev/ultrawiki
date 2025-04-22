@@ -9,4 +9,5 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 });
 
-export const handlError = Sentry.handleErrorWithSentry();
+export const handleError = Sentry.handleErrorWithSentry();
+export const handle = Sentry.sentryHandle();
