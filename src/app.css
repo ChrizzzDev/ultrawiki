@@ -14,7 +14,10 @@
   font-display: swap;
 }
 
-.dark body { background: #121212; }
+body {
+  background: radial-gradient(circle at center, #1a1a1a, #7a0000);
+  min-height: 100vh;
+}
 
 .vcr {
   font-family: 'VCR', monospace;
@@ -29,4 +32,22 @@ iconify-icon {
   display: inline-block;
   width: 1em;
   height: 1em;
+}
+
+.glitch-anim {
+	position: relative;
+	animation: glitch-title 1.2s infinite alternate;
+}
+@keyframes glitch-title {
+	0%   { text-shadow: 2px 0 #ff0000, -2px 0 #00fff7; }
+	20%  { text-shadow: -2px 0 #ff0000, 2px 0 #00fff7; }
+	40%  { text-shadow: 2px 2px #ff0000, -2px -2px #00fff7; }
+	60%  { text-shadow: -2px 2px #ff0000, 2px -2px #00fff7; }
+	80%  { text-shadow: 2px 0 #ff0000, -2px 0 #00fff7; }
+	100% { text-shadow: 2px 0 #ff0000, -2px 0 #00fff7; }
+}
+
+.glitch-anim-soft {
+	animation: glitch-title 2.5s infinite alternate;
+	opacity: 0.9;
 }

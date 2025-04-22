@@ -9,7 +9,7 @@
 </script>
 
 <nav
-	class="variant-glass fixed left-1/2 top-6 z-10 w-[calc(100%-30%)] -translate-x-1/2 rounded-lg border-transparent"
+	class="variant-glass fixed left-1/2 top-4 z-10 w-[70%] md:w-[50%] -translate-x-1/2 rounded-lg border-transparent"
 >
 	<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
 		<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
