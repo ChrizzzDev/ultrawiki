@@ -17,8 +17,8 @@ export default {
 	theme: {
 		extend: {},
 		fontFamily: {
-			'vcr': ['./src/lib/assets/fonts/VCR_OSD_MONO.ttf'],
-			'broshkill': ['./src/lib/assets/fonts/BroshKill-Regular.otf']
+			'vcr': ['./static/fonts/VCR_OSD_MONO.ttf'],
+			'broshkill': ['./static/fonts/BroshKill-Regular.otf']
 		}
 	},
 

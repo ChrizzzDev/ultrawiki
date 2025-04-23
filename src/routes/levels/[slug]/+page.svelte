@@ -3,8 +3,7 @@
 
 	let { data }: PageProps = $props();
 
-	const imageModule = async (id: string) =>
-		await import(`$lib/assets/icons/levels/${id}.webp`);
+	const imageModule = (id: string) => `/icons/levels/${id}.webp`;
 
 	const layers: { [key: string]: string } = {
 		'0': 'Overture',
@@ -26,16 +25,12 @@
 
 <div class="mx-auto max-w-3xl px-4 py-10">
 	<div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-red-700 bg-gradient-to-br from-neutral-900 to-neutral-800">
-		{#await imageModule(data.LevelId) then { default: module }}
-			<img
-				src={module}
-				alt={data.Name}
-				class="w-full h-72 object-cover object-center"
-				draggable="false"
-			/>
-		{:catch}
-			<div class="w-full h-72 flex items-center justify-center text-red-500 bg-neutral-900">Sin imagen</div>
-		{/await}
+		<img
+			src={imageModule(data.LevelId)}
+			alt={data.Name}
+			class="w-full h-72 object-cover object-center"
+			draggable="false"
+		/>
 		<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 		<div class="absolute top-4 left-4 bg-black/70 px-4 py-2 rounded-xl border-2 border-red-600 vcr text-white text-lg shadow-lg uppercase tracking-widest">{layerName}</div>
 		<div class="absolute top-4 right-4 bg-black/70 px-4 py-2 rounded-xl border-2 border-red-600 vcr text-white text-lg shadow-lg uppercase tracking-widest">{data.Act}</div>
