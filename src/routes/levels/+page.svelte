@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
 	import type { Level as L } from 'dbt';
+	import FlashGlitch from '$lib/components/FlashGlitch.svelte';
+
 	type Level = Pick<L, 'Act' | 'Name' | 'LevelId'>;
 
 	let { data }: PageProps = $props();
@@ -48,17 +50,25 @@
 <div class="mx-auto max-w-7xl px-4 py-8">
 	{#each Object.entries(groupedLevels) as [act, layers]}
 		<section class="mb-16">
-			<h2 class="vcr text-4xl font-extrabold text-red-600 drop-shadow-lg mb-8 border-b-2 border-red-700 pb-2 crt-flicker">{act}</h2>
+			<h2
+				class="vcr glitch layers mb-8 border-b-2 border-red-700 pb-2 text-4xl font-extrabold text-red-600 drop-shadow-2xl"
+			>
+				<FlashGlitch as="span">{act}</FlashGlitch>
+			</h2>
 			{#each Object.entries(layers) as [layerName, layerLevels]}
 				<div class="mb-10">
-					<h3 class="vcr text-2xl font-bold text-white tracking-widest mb-6 uppercase text-center glitch-anim-soft">{layerName}</h3>
-					<div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+					<h3
+						class="vcr glitch-anim-soft mb-6 text-center text-2xl font-bold tracking-widest text-white uppercase"
+					>
+						{layerName}
+					</h3>
+					<div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mx-12">
+					<!-- <div class="mx-12 flex justify-between gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-2"> -->
 						{#each layerLevels as level, index}
 							{@const slug = level.Name.replace(/\s+/g, '_')}
 							<a
 								href="/levels/{slug}"
-								class="group relative block rounded-md overflow-hidden border-4 border-red-500 bg-black hover:scale-[1.03] transition-transform duration-200 animate-fade-in shadow-[4px_4px_0_#ff0000]"
-								data-sveltekit-preload-code
+								class="group animate-fade-in relative block overflow-hidden rounded-md border-4 border-red-500 bg-black shadow-[4px_4px_0_#ff0000] transition-transform duration-200 hover:scale-[1.03] z-10"
 								data-sveltekit-preload-data
 								style="animation-delay: {index * 80}ms"
 							>
@@ -70,15 +80,28 @@
 										class="h-56 w-full object-cover transition-transform duration-200 group-hover:scale-110"
 										draggable="false"
 									/>
-									<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-									<div class="absolute inset-0 pointer-events-none">
-										<span class="block w-full h-full rounded-xl opacity-0 group-hover:opacity-100 z-10"></span>
+									<div
+										class="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent"
+									></div>
+									<div class="pointer-events-none absolute inset-0">
+										<span
+											class="z-10 block h-full w-full rounded-xl opacity-0 group-hover:opacity-100"
+										></span>
 									</div>
-									<div class="absolute bottom-0 left-0 right-0 px-4 py-2 bg-black/60 backdrop-blur-sm flex items-center justify-center h-14 w-full mx-auto">
-										<span class="vcr text-lg font-semibold text-white group-hover:text-red-400 transition-colors">{level.Name}</span>
+									<div
+										class="absolute right-0 bottom-0 left-0 mx-auto flex h-14 w-full items-center justify-center bg-black/60 px-4 py-2 backdrop-blur-xs"
+									>
+										<span
+											class="vcr text-lg font-semibold text-white transition-colors group-hover:text-red-400"
+											>{level.Name}</span
+										>
 									</div>
 								</div>
-								<div class="absolute top-2 right-2 text-white text-xs px-2 py-1 rounded shadow vcr variant-glass-surface uppercase">{layerName}</div>
+								<div
+									class="vcr preset-tonal-surface absolute top-2 right-2 rounded-xs px-2 py-1 text-xs text-white uppercase shadow-sm"
+								>
+									{layerName}
+								</div>
 							</a>
 						{/each}
 					</div>
