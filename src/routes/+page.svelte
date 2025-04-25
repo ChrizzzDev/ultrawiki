@@ -52,8 +52,16 @@
 
 <script lang="ts">
 	import FlashGlitch from '$lib/components/FlashGlitch.svelte';
+	import Intro from '$lib/components/Intro.svelte';
+	import { seen } from '$lib/shared.svelte';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		seen.val = true;
+	});
 </script>
 
+<Intro />
 <div class="relative flex h-screen w-screen flex-col items-center justify-center text-center">
 	<div class="fixed inset-0 z-0 flex items-center justify-center opacity-35">
 		<img src="/skull.gif" class="w-52" alt="ULTRAKILL Skull death screen" draggable="false" />

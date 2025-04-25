@@ -5,7 +5,7 @@
 
 	type Level = Pick<L, 'Act' | 'Name' | 'LevelId'>;
 
-	let { data }: PageProps = $props();
+	const { data }: PageProps = $props();
 
 	const imageModule = (id: string) => `/icons/levels/${id}.webp`;
 
@@ -53,7 +53,7 @@
 			<h2
 				class="vcr glitch layers mb-8 border-b-2 border-red-700 pb-2 text-4xl font-extrabold text-red-600 drop-shadow-2xl"
 			>
-				<FlashGlitch as="span">{act}</FlashGlitch>
+				<FlashGlitch>{act}</FlashGlitch>
 			</h2>
 			{#each Object.entries(layers) as [layerName, layerLevels]}
 				<div class="mb-10">
@@ -62,13 +62,12 @@
 					>
 						{layerName}
 					</h3>
-					<div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mx-12">
-					<!-- <div class="mx-12 flex justify-between gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-2"> -->
+					<div class="mx-12 grid gap-6 justify-between sm:md:grid-cols-3">
 						{#each layerLevels as level, index}
 							{@const slug = level.Name.replace(/\s+/g, '_')}
 							<a
 								href="/levels/{slug}"
-								class="group animate-fade-in relative block overflow-hidden rounded-md border-4 border-red-500 bg-black shadow-[4px_4px_0_#ff0000] transition-transform duration-200 hover:scale-[1.03] z-10"
+								class="group animate-fade-in relative z-10 block w-full overflow-hidden rounded-md border-4 border-red-500 bg-black shadow-[4px_4px_0_#ff0000] transition-transform duration-200 hover:scale-[1.03]"
 								data-sveltekit-preload-data
 								style="animation-delay: {index * 80}ms"
 							>

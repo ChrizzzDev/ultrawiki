@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Nav from '$lib/components/Nav.svelte';
-	import Intro from '$lib/components/Intro.svelte';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 
 	import '../app.css';
@@ -18,7 +17,7 @@
 </script>
 
 <div
-	class="relative isolate overflow-hidden bg-linear-to-br from-neutral-900 via-[#0f0000] to-[#121212]"
+	class="relative isolate overflow-x-hidden bg-gradient-to-br from-black via-neutral-950 to-primary-950/30"
 >
 	<svg
 		class="absolute inset-0 -z-10 h-full w-full [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)] stroke-white/10"
@@ -59,7 +58,6 @@
 		></div>
 	</div>
 	<main class="mt-20 relative z-40 crt-scanlines">
-		<Intro />
 		<Nav />
 		{@render children()}
 	</main>

@@ -1,15 +1,29 @@
-import { error } from '@sveltejs/kit';
 import kysely from 'db';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
+	const slug = params.slug.replaceAll('_', ' ');
+
 	const data = await kysely
 		.selectFrom('Level')
-		.selectAll()
-		.where('Name', '=', params.slug.replaceAll('_', ' '))
-		.executeTakeFirstOrThrow(() => {
-			return error(404, 'Not Found');
-		});
+		.leftJoin('LevelEnemy as LE', 'LE.LevelId', 'Level.LevelId')
+		.select([
+			'Level.Act as Act',
+			'Level.Challenge as Challenge',
+			'Level.LevelId as LevelId',
+			'Level.Name as Name',
+			'Level.PRank as PRank',
+			'Level.Secret as Secrets',
+			'LE.EnemyId as EnemyId',
+			'LE.Quantity as Quantity',
+		])
+		.where(
+			(eb) => eb.or([
+				eb('Level.LevelId', '=', slug),
+				eb('Level.Name', '=', slug)
+			])
+		)
+		.execute();
 
-	return { ...data };
+	return { data };
 };
