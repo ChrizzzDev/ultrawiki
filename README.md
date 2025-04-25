@@ -39,15 +39,15 @@ Kysely (optional): A type-safe SQL query builder (included here for database int
 
 To run ULTRAWIKI locally, ensure you have Node.js installed. The project uses pnpm, but you can also use npm or yarn. Then run:
 
-git clone https://github.com/ChrizzzDev/ultrawiki.git
-cd ultrawiki
-pnpm install
-pnpm run dev
+* git clone https://github.com/ChrizzzDev/ultrawiki.git
+* cd ultrawiki
+* pnpm install
+* pnpm run dev
 
 Open the URL shown in the console (usually http://localhost:5173) in your browser to view the site.
 
 ## Notes
 
-*Fan-Made / No Affiliation*: ULTRAWIKI is created by fans and is not affiliated with the ULTRAKILL developers or publishers in any way.
+**Fan-Made / No Affiliation**: ULTRAWIKI is created by fans and is not affiliated with the ULTRAKILL developers or publishers in any way.
 
-*Non-Commercial*: The project is for educational and community use only and is not used for any commercial purpose.
+**Non-Commercial**: The project is for educational and community use only and is not used for any commercial purpose.
