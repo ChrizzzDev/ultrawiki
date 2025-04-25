@@ -1,6 +1,4 @@
 <script lang="ts">
-	import 'svelte-reveal/styles.css'
-
 	import type { PageProps } from './$types';
 
 	import Icon from '@iconify/svelte';
