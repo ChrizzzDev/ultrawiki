@@ -4,7 +4,7 @@
 	import Icon from '@iconify/svelte';
 	import FlashGlitch from '$lib/components/FlashGlitch.svelte';
 	import { Pagination } from '@skeletonlabs/skeleton-svelte';
-	import { reveal } from 'svelte-reveal';
+	// import { reveal } from 'svelte-reveal';
 
 	const { data }: PageProps = $props();
 
@@ -102,8 +102,11 @@
 		</p>
 		<!-- Secrets -->
 		{#if secrets.length}
-			<div
+			<!-- <div
 				use:reveal={{ duration: 500, preset: 'fly', y: 80 }}
+				class="vcr mt-4 p-4 bg-slate-950/50 rounded-md shadow-md border-2 border-blue-950 sr__hide"
+			> -->
+			<div
 				class="vcr mt-4 p-4 bg-slate-950/50 rounded-md shadow-md border-2 border-blue-950 sr__hide"
 			>
 				<span class="vcr text-yellow-400 block mb-2">SECRETS:</span>
@@ -124,7 +127,8 @@
 
 		<!-- P-Rank -->
 		{#if level.PRank}
-			<div use:reveal={{ duration: 500, preset: 'fly', y: 80 }} class="vcr mt-4 grid grid-cols-3 gap-4 text-sm text-white">
+			<!-- <div use:reveal={{ duration: 500, preset: 'fly', y: 80 }} class="vcr mt-4 grid grid-cols-3 gap-4 text-sm text-white">-->
+			<div class="vcr mt-4 grid grid-cols-3 gap-4 text-sm text-white">
 				<div
 					class="flex flex-col items-center rounded-lg border border-pink-400 bg-black/50 p-2 shadow-md"
 				>
@@ -148,8 +152,11 @@
 
 		<!-- Challenge -->
 		{#if level.Challenge}
-			<div
+			<!-- <div
 				use:reveal={{ duration: 500, preset: 'fly', y: 80 }}
+				class="border-success-400 bg-success-900/20 mt-4 rounded-xl border-2 p-4 text-white shadow-md"
+			> -->
+			<div
 				class="border-success-400 bg-success-900/20 mt-4 rounded-xl border-2 p-4 text-white shadow-md"
 			>
 				<div class="vcr flex items-center space-x-2">
