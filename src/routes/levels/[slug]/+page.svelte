@@ -1,4 +1,6 @@
 <script lang="ts">
+	import 'svelte-reveal/styles.css'
+
 	import type { PageProps } from './$types';
 
 	import Icon from '@iconify/svelte';
@@ -104,7 +106,7 @@
 		{#if secrets.length}
 			<div
 				use:reveal={{ duration: 500, preset: 'fly', y: 80 }}
-				class="vcr mt-4 p-4 bg-slate-950/50 rounded-md shadow-md border-2 border-blue-950"
+				class="vcr mt-4 p-4 bg-slate-950/50 rounded-md shadow-md border-2 border-blue-950 sr__hide"
 			>
 				<span class="vcr text-yellow-400 block mb-2">SECRETS:</span>
 				<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4">
