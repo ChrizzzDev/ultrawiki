@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import type { ClassValue } from 'svelte/elements';
+
 	let el: HTMLElement;
 
 	let {
-		as = 'span',
 		duration = 6,
 		minDelay = 0,
-		maxDelay = 5
+		maxDelay = 5,
+		classList
 	}: Props = $props();
 
 	onMount(() => {
@@ -16,15 +18,15 @@
 	});
 
 	interface Props {
-		as?: string;
 		duration?: number;
 		minDelay?: number;
 		maxDelay?: number;
+		classList?: ClassValue;
 	}
 </script>
 
-<svelte:element this={as} bind:this={el} class="flash whitespace-nowrap">
-	<span>
+<div bind:this={el} class="flash">
+	<span class={classList}>
 		<slot/>
 	</span>
-</svelte:element>
+</div>

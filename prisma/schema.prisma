@@ -9,25 +9,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// -----------------------------------------
-//                   WIKI
-// -----------------------------------------
-
 model AltWeapon {
-  WeaponId Int            @id
-  Name     String
-  Type     AltWeapon_Type
-  Damage   Decimal
-  AltDmg   Decimal?
-  Cooldown Decimal
-  Extras   String
-
-  Original Weapon @relation(fields: [original], references: [WeaponId], onDelete: Cascade, onUpdate: NoAction)
-
-  Obtained Level @relation(fields: [obtainedIn], references: [LevelId])
-
-  original   Int    @db.UnsignedTinyInt @unique
+  WeaponId   Int            @id
+  Name       String
+  Type       AltWeapon_Type
+  Damage     Decimal
+  AltDmg     Decimal?
+  Cooldown   Decimal
+  Extras     String
+  original   Int            @unique @db.UnsignedTinyInt
   obtainedIn String
+  Obtained   Level          @relation(fields: [obtainedIn], references: [LevelId])
+  Original   Weapon         @relation(fields: [original], references: [WeaponId], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([obtainedIn], map: "AltWeapon_obtainedIn_fkey")
 }
 
 model Enemy {
@@ -35,41 +30,19 @@ model Enemy {
   Category        Enemy_Category?
   Race            Enemy_Race
   Weigth          Enemy_Weigth
-  //// @kyselyType ( import('./_t.ts).Health )
+  /// / @kyselyType ( import('./_t.ts).Health )
   Health          Json
-  //// @kyselyType ( import('./_t.ts).Attacks )
+  /// / @kyselyType ( import('./_t.ts).Attacks )
   Attacks         Json?
-  //// @kyselyType ( import('./_t.ts).Attacks )
+  /// / @kyselyType ( import('./_t.ts).Attacks )
   DamageModifiers Json?
+  DebutId         String
+  SPR             Int?            @db.TinyInt
+  FallDamage      Boolean?        @db.Bit(1)
   Level           Level           @relation(fields: [DebutId], references: [LevelId], onDelete: NoAction, onUpdate: NoAction)
   LevelEnemy      LevelEnemy[]
 
-  DebutId String
-}
-
-model Level {
-  LevelId    String       @id @db.Char(3)
-  Name       String       @db.VarChar(50)
-  Act        String       @db.VarChar(50)
-  Secret     String?      @db.VarChar(20)
-  PRank      String?      @db.VarChar(20)
-  Challenge  String?      @db.VarChar(255)
-  Enemy      Enemy[]
-  LevelEnemy LevelEnemy[]
-  AltWeapon  AltWeapon[]
-  Weapon     Weapon[]
-}
-
-model LevelEnemy {
-  Quantity Int   @db.UnsignedTinyInt
-  Enemy    Enemy @relation(fields: [EnemyId], references: [Name])
-  Level    Level @relation(fields: [LevelId], references: [LevelId])
-
-  LevelId String @db.Char(3)
-  EnemyId String @db.VarChar(50)
-
-  @@id([LevelId, EnemyId])
-  @@index([EnemyId], map: "LevelEnemy_EnemyId_fkey")
+  @@index([DebutId], map: "Enemy_DebutId_fkey")
 }
 
 model Style {
@@ -82,18 +55,44 @@ model Style {
 }
 
 model Weapon {
-  WeaponId  Int         @id @db.UnsignedTinyInt
-  Name      String      @db.VarChar(30)
-  Type      Weapon_Type
-  Damage    Decimal     @db.Decimal(4, 2)
-  AltDmg    Decimal     @db.Decimal(4, 2)
-  Cooldown  Decimal     @db.Decimal(5, 3)
-  Extras    String      
-  Price     Int         @db.UnsignedMediumInt
-  AltWeapon AltWeapon?
-  Obtained  Level       @relation(fields: [obtainedIn], references: [LevelId], onDelete: NoAction, onUpdate: NoAction)
+  WeaponId   Int         @id @db.UnsignedTinyInt
+  Name       String      @db.VarChar(30)
+  Type       Weapon_Type
+  Damage     Decimal     @db.Decimal(4, 2)
+  AltDmg     Decimal     @db.Decimal(4, 2)
+  Cooldown   Decimal     @db.Decimal(5, 3)
+  Extras     String
+  Price      Int         @db.UnsignedMediumInt
+  obtainedIn String      @db.VarChar(3)
+  AltWeapon  AltWeapon?
+  Obtained   Level       @relation(fields: [obtainedIn], references: [LevelId], onDelete: NoAction, onUpdate: NoAction)
 
-  obtainedIn String     @db.VarChar(3)
+  @@index([obtainedIn], map: "Weapon_obtainedIn_fkey")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model Level {
+  LevelId    String       @id @db.Char(3)
+  Name       String       @db.VarChar(50)
+  Act        String       @db.VarChar(50)
+  Secret     String?      @db.VarChar(20)
+  PRank      String?      @db.VarChar(20)
+  Challenge  String?      @db.VarChar(255)
+  AltWeapon  AltWeapon[]
+  Enemy      Enemy[]
+  LevelEnemy LevelEnemy[]
+  Weapon     Weapon[]
+}
+
+model LevelEnemy {
+  Quantity Int    @db.UnsignedTinyInt
+  LevelId  String @db.Char(3)
+  EnemyId  String @db.VarChar(50)
+  Enemy    Enemy  @relation(fields: [EnemyId], references: [Name])
+  Level    Level  @relation(fields: [LevelId], references: [LevelId])
+
+  @@id([LevelId, EnemyId])
+  @@index([EnemyId], map: "LevelEnemy_EnemyId_fkey")
 }
 
 enum Enemy_Category {
@@ -131,10 +130,4 @@ enum Enemy_Weigth {
   Medium
   Heavy
   Superheavy
-}
-
-enum User_Role {
-  User
-  Mod
-  Admin
 }

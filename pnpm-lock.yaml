@@ -38,6 +38,9 @@ importers:
       prisma-kysely:
         specifier: ^1.8.0
         version: 1.8.0
+      svelte-reveal:
+        specifier: ^1.1.0
+        version: 1.1.0
       tailwind-merge:
         specifier: ^3.2.0
         version: 3.2.0
@@ -45,6 +48,12 @@ importers:
       '@iconify/svelte':
         specifier: ^4.2.0
         version: 4.2.0(svelte@5.28.2)
+      '@melt-ui/pp':
+        specifier: ^0.3.2
+        version: 0.3.2(@melt-ui/svelte@0.86.6(svelte@5.28.2))(svelte@5.28.2)
+      '@melt-ui/svelte':
+        specifier: ^0.86.6
+        version: 0.86.6(svelte@5.28.2)
       '@skeletonlabs/skeleton':
         specifier: ^3.1.2
         version: 3.1.2(tailwindcss@4.1.4)
@@ -460,6 +469,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@internationalized/date@3.8.0':
+    resolution: {integrity: sha512-J51AJ0fEL68hE4CwGPa6E0PO6JDaVLd8aln48xFCSy7CZkZc96dGEGmLs2OEEbBxcsVZtfrqkXJwI2/MSG8yKw==}
+
   '@jest/schemas@29.6.3':
     resolution: {integrity: sha512-mo5j5X+jIZmJQveBKeS/clAueipV7KgiX1vMgCxam1RNYiqE1w62n0/tJJnHtjW8ZHcQco5gY85jA3mi0L+nSA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -481,6 +493,17 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@melt-ui/pp@0.3.2':
+    resolution: {integrity: sha512-xKkPvaIAFinklLXcQOpwZ8YSpqAFxykjWf8Y/fSJQwsixV/0rcFs07hJ49hJjPy5vItvw5Qa0uOjzFUbXzBypQ==}
+    peerDependencies:
+      '@melt-ui/svelte': '>= 0.29.0'
+      svelte: ^3.55.0 || ^4.0.0 || ^5.0.0-next.1
+
+  '@melt-ui/svelte@0.86.6':
+    resolution: {integrity: sha512-Jer+M7DgIwT5IHfTayb4Iw/fkkxWNmC/mqn/nMh9JrbPbkxmyabfLQnhJ+JDn5HK77f84j34lubO3iqFtYAfMg==}
+    peerDependencies:
+      svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.118
 
   '@mrleebo/prisma-ast@0.7.0':
     resolution: {integrity: sha512-GTPkYf1meO2UXXIrz/SIDFWz+P4kXo2PTt36LYh/oNxV1PieYi7ZgenQk4IV0ut71Je3Z8ZoNZ8Tr7v2c1X1pg==}
@@ -1051,6 +1074,9 @@ packages:
     peerDependencies:
       svelte: ^5.0.0
       vite: ^6.0.0
+
+  '@swc/helpers@0.5.17':
+    resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
 
   '@tailwindcss/node@4.1.4':
     resolution: {integrity: sha512-MT5118zaiO6x6hNA04OWInuAiP1YISXql8Z+/Y8iisV5nuhM8VXlyhRuqc2PEviPszcXI66W44bCIk500Oolhw==}
@@ -1659,6 +1685,9 @@ packages:
   estree-walker@2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
 
+  estree-walker@3.0.3:
+    resolution: {integrity: sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g==}
+
   execa@5.1.1:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
     engines: {node: '>=10'}
@@ -1693,6 +1722,9 @@ packages:
   find-up@5.0.0:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
+
+  focus-trap@7.6.4:
+    resolution: {integrity: sha512-xx560wGBk7seZ6y933idtjJQc1l+ck+pI3sKvhKozdBV1dRZoKhkW5xoCaFv9tQiX5RH1xfSxjuNu6g+lmN/gw==}
 
   forwarded-parse@2.1.2:
     resolution: {integrity: sha512-alTFZZQDKMporBH77856pXgzhEzaUVmLCDk+egLgIgHst3Tpndzz8MnKe+GzRJRfvVdn69HhpW7cmXzvtLvJAw==}
@@ -2712,9 +2744,15 @@ packages:
     peerDependencies:
       svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.1
 
+  svelte-reveal@1.1.0:
+    resolution: {integrity: sha512-TnLZy7UOj14ZGsbKjZUK/c+aCnPl1sieZ1VrmKPCtG1Cw9XDUslpV/KJGqJeo7sVNVeG7QnH1asrsugogR3YYg==}
+
   svelte@5.28.2:
     resolution: {integrity: sha512-FbWBxgWOpQfhKvoGJv/TFwzqb4EhJbwCD17dB0tEpQiw1XyUEKZJtgm4nA4xq3LLsMo7hu5UY/BOFmroAxKTMg==}
     engines: {node: '>=18'}
+
+  tabbable@6.2.0:
+    resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
 
   tailwind-merge@3.2.0:
     resolution: {integrity: sha512-FQT/OVqCD+7edmmJpsgCsY820RTD5AkBryuG5IUqR5YQZSdj5xlH5nLgH7YPths7WsLPSpSBNneJdM8aS8aeFA==}
@@ -3235,6 +3273,10 @@ snapshots:
   '@img/sharp-win32-x64@0.33.5':
     optional: true
 
+  '@internationalized/date@3.8.0':
+    dependencies:
+      '@swc/helpers': 0.5.17
+
   '@jest/schemas@29.6.3':
     dependencies:
       '@sinclair/typebox': 0.27.8
@@ -3255,6 +3297,23 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@melt-ui/pp@0.3.2(@melt-ui/svelte@0.86.6(svelte@5.28.2))(svelte@5.28.2)':
+    dependencies:
+      '@melt-ui/svelte': 0.86.6(svelte@5.28.2)
+      estree-walker: 3.0.3
+      magic-string: 0.30.17
+      svelte: 5.28.2
+
+  '@melt-ui/svelte@0.86.6(svelte@5.28.2)':
+    dependencies:
+      '@floating-ui/core': 1.6.9
+      '@floating-ui/dom': 1.6.13
+      '@internationalized/date': 3.8.0
+      dequal: 2.0.3
+      focus-trap: 7.6.4
+      nanoid: 5.1.5
+      svelte: 5.28.2
 
   '@mrleebo/prisma-ast@0.7.0':
     dependencies:
@@ -4045,6 +4104,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@swc/helpers@0.5.17':
+    dependencies:
+      tslib: 2.8.1
+
   '@tailwindcss/node@4.1.4':
     dependencies:
       enhanced-resolve: 5.18.1
@@ -4757,6 +4820,10 @@ snapshots:
 
   estree-walker@2.0.2: {}
 
+  estree-walker@3.0.3:
+    dependencies:
+      '@types/estree': 1.0.7
+
   execa@5.1.1:
     dependencies:
       cross-spawn: 7.0.6
@@ -4804,6 +4871,10 @@ snapshots:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
+
+  focus-trap@7.6.4:
+    dependencies:
+      tabbable: 6.2.0
 
   forwarded-parse@2.1.2: {}
 
@@ -5734,6 +5805,8 @@ snapshots:
     dependencies:
       svelte: 5.28.2
 
+  svelte-reveal@1.1.0: {}
+
   svelte@5.28.2:
     dependencies:
       '@ampproject/remapping': 2.3.0
@@ -5750,6 +5823,8 @@ snapshots:
       locate-character: 3.0.0
       magic-string: 0.30.17
       zimmerframe: 1.1.2
+
+  tabbable@6.2.0: {}
 
   tailwind-merge@3.2.0: {}
 
