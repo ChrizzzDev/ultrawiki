@@ -5,14 +5,14 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 
-	let { children } = $props();
+	const { children } = $props();
 	injectSpeedInsights();
 
 	onMount(() => {
-		document.querySelectorAll('.glitch').forEach((el) => {
+		for (const el of document.querySelectorAll('.glitch')) {
 			const delay = (Math.random() * 2).toFixed(2);
 			(el as HTMLElement).style.animationDelay = `${delay}s`;
-		});
+		}
 	});
 </script>
 

@@ -51,6 +51,7 @@
 					<a
 						href="/levels"
 						class="block rounded px-3 py-2 text-white md:bg-transparent md:p-0 md:hover:text-red-500 hover:text-red-600 transition"
+						data-sveltekit-preload-code="viewport"
 						>Levels</a
 					>
 				</li>
@@ -58,7 +59,7 @@
 					<a
 						href="/enemies"
 						class="block rounded px-3 py-2 text-white hover:bg-white/10 md:p-0 md:hover:bg-transparent md:hover:text-red-500 transition"
-						data-sveltekit-preload-data
+						data-sveltekit-preload-code="viewport"
 						>Enemies</a
 					>
 				</li>

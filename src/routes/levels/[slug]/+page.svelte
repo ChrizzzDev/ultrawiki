@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
-
 	import Icon from '@iconify/svelte';
 	import FlashGlitch from '$lib/components/FlashGlitch.svelte';
 	import { Pagination } from '@skeletonlabs/skeleton-svelte';
@@ -8,11 +7,11 @@
 
 	const { data }: PageProps = $props();
 
-	const rows = data.data;
+	const rows = data.rows;
 	const enemies = $state(
 		rows
-			.filter((row) => row.EnemyId && row.Quantity !== null)
-			.map((row) => ({ Quantity: row.Quantity, EnemyId: row.EnemyId }))
+			.filter((row) => row.Enemies)
+			.flatMap((row) => row.Enemies ?? [])
 	);
 	const level = rows[0];
 
@@ -35,35 +34,33 @@
 		2: 'Gold Soul Orb'
 	};
 
-	function parseSecrets(string: string): string[] {
-		if (!string) return [];
+	function parseSecrets(data: number[]): string[] {
+		if (!data) return [];
 
 		const result: string[] = [];
-		const _secrets = string.slice(1, -1).split(',');
 
-		for (const secret of _secrets) {
-			result.push(sp[Number(secret)]);
+		for (const secret of data) {
+			result.push(sp[secret]);
 		}
 
 		return result;
 	}
 
-	function parsePRank(data: string): Partial<PRank> {
+	function parsePRank(data: number[]): Partial<PRank> {
 		if (!data) return {};
-		const string = data.slice(1, -1).split(',');
 
 		return {
-			time: `${string[0]}s`,
-			enemies: string[1],
-			style: string[2]
+			time: `${data[0]}s`,
+			enemies: data[1],
+			style: data[2]
 		};
 	}
 
-	type PRank = { time: string; enemies: string; style: string };
+	type PRank = { time: string; enemies: number; style: number };
 
 	const layerName = layers[level.LevelId.substring(0, 1)] ?? 'Unknown';
-	const secrets = parseSecrets(level.Secrets ?? '');
-	const prank = parsePRank(level.PRank ?? '');
+	const secrets = parseSecrets(level.Secret ?? []);
+	const prank = parsePRank(level.PRank ?? []);
 
 	// biome-ignore lint/style/useConst: <explanation>
 	let size = $state(5);
@@ -126,7 +123,7 @@
 		{/if}
 
 		<!-- P-Rank -->
-		{#if level.PRank}
+		{#if level.PRank?.length}
 			<!-- <div use:reveal={{ duration: 500, preset: 'fly', y: 80 }} class="vcr mt-4 grid grid-cols-3 gap-4 text-sm text-white">-->
 			<div class="vcr mt-4 grid grid-cols-3 gap-4 text-sm text-white">
 				<div

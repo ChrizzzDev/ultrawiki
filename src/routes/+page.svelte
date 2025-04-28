@@ -88,7 +88,7 @@
 				href="/levels"
 				class="hero-btn rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
 				rel="noreferrer"
-				data-sveltekit-preload-data
+				data-sveltekit-preload-code="viewport"
 			>
 				Discover →
 			</a>

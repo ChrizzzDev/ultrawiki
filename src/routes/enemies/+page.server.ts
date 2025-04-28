@@ -1,6 +1,7 @@
 import kysely from 'db';
-
 import type { PageServerLoad } from './$types';
+
+export const prerender = true;
 
 export const load: PageServerLoad = async () => {
 	const enemies = await kysely.selectFrom('Enemy').selectAll().execute();

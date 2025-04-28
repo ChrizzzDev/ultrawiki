@@ -129,7 +129,6 @@
 									? pSO[enemy.Name].card
 									: 'border-red-500 bg-linear-to-br from-black via-neutral-900 to-red-950 shadow-[0_8px_32px_0_rgba(255,0,0,0.25)]'}
 								"
-								data-sveltekit-preload-data
 								style="animation-delay: {index * 80}ms; width: 240px; height: 390px;"
 							>
 								<div class="relative h-full w-full overflow-hidden rounded-xl pt-8">

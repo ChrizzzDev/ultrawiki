@@ -1,29 +1,19 @@
-import kysely from 'db';
 import type { PageServerLoad } from './$types';
+import type { APIResponse, LevelResponse } from '$lib';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const prerender = true;
+export const ssr = false;
+
+export const load: PageServerLoad = async ({ fetch, params, url }) => {
 	const slug = params.slug.replaceAll('_', ' ');
+	const query = new URLSearchParams(url.searchParams).toString();
+	const res = await fetch(`/api/v1/levels/${slug}?enemies${query ? `&${query}` : ''}`);
 
-	const data = await kysely
-		.selectFrom('Level')
-		.leftJoin('LevelEnemy as LE', 'LE.LevelId', 'Level.LevelId')
-		.select([
-			'Level.Act as Act',
-			'Level.Challenge as Challenge',
-			'Level.LevelId as LevelId',
-			'Level.Name as Name',
-			'Level.PRank as PRank',
-			'Level.Secret as Secrets',
-			'LE.EnemyId as EnemyId',
-			'LE.Quantity as Quantity',
-		])
-		.where(
-			(eb) => eb.or([
-				eb('Level.LevelId', '=', slug),
-				eb('Level.Name', '=', slug)
-			])
-		)
-		.execute();
+	if (!res.ok) {
+		throw new Error('Failed to load level');
+	}
 
-	return { data };
+	const response: APIResponse<LevelResponse[]> = await res.json();
+
+	return { rows: response.data };
 };

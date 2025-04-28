@@ -22,8 +22,10 @@
 		"@skeletonlabs/skeleton": "^3.1.2",
 		"@skeletonlabs/skeleton-svelte": "^1.2.1",
 		"@sveltejs/adapter-auto": "^4.0.0",
+		"@sveltejs/adapter-vercel": "^5.7.0",
 		"@sveltejs/kit": "^2.20.7",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
+		"@tailwindcss/forms": "^0.5.10",
 		"@tailwindcss/typography": "^0.5.16",
 		"@types/node": "^22.14.1",
 		"mdsvex": "^0.12.5",
@@ -31,6 +33,7 @@
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"prisma": "^6.6.0",
+		"prisma-erd-generator": "^2.0.4",
 		"svelte": "^5.28.2",
 		"svelte-check": "^4.1.6",
 		"tailwindcss": "^4.1.4",
@@ -40,6 +43,7 @@
 	"dependencies": {
 		"@fontsource-variable/rubik": "^5.2.5",
 		"@sentry/sveltekit": "^8.55.0",
+		"@sveltejs/amp": "^1.1.4",
 		"@sveltejs/enhanced-img": "^0.4.4",
 		"@tailwindcss/vite": "^4.1.4",
 		"@vercel/speed-insights": "^1.2.0",
@@ -53,12 +57,15 @@
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
+			"@prisma/client",
 			"@prisma/engines",
 			"@sentry/cli",
 			"@vercel/speed-insights",
 			"esbuild",
 			"prisma",
-			"sharp"
+			"puppeteer",
+			"sharp",
+			"vue-demi"
 		]
 	}
 }

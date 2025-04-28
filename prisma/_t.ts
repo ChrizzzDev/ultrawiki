@@ -1,9 +1,7 @@
 export type Health = {
-	boss?: number;
-	base: number;
+	[key: string]: number;
 };
 
 export type Attacks = {
-	name: string;
-	damage: number;
+	[key: string]: number;
 };

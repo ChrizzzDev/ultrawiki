@@ -9,7 +9,7 @@
 
 	const imageModule = (id: string) => `/icons/levels/${id}.webp`;
 
-	const layers: { [key: string]: string } = {
+	const layers = {
 		'0': 'Overture',
 		'1': 'Limbo',
 		'2': 'Lust',
@@ -22,23 +22,29 @@
 
 	function groupLevels() {
 		const levels = data.levels;
-		const groupedLevels: { [key: string]: { [key: string]: Level[] } } = {};
+		const groupedLevels: Map<string, Map<string, Level[]>> = new Map();
 
 		for (const level of levels) {
 			const id = level.LevelId;
-			const layer = layers[id.substring(0, 1)];
+			const layer = layers[id.substring(0, 1) as keyof typeof layers];
 			const act = level.Act;
 
-			if (!groupedLevels[act]) groupedLevels[act] = {};
-			if (!groupedLevels[act][layer]) groupedLevels[act][layer] = [];
+			if (!groupedLevels.has(act)) {
+				groupedLevels.set(act, new Map());
+			}
 
-			groupedLevels[act][layer].push(level);
+			const actGroup = groupedLevels.get(act)!;
+			if (!actGroup.has(layer)) {
+				actGroup.set(layer, []);
+			}
+
+			actGroup.get(layer)!.push(level);
 		}
 
 		return groupedLevels;
 	}
 
-	let groupedLevels = $state<{ [key: string]: { [key: string]: Level[] } }>({});
+	let groupedLevels = $state<Map<string, Map<string, Level[]>>>(new Map());
 
 	groupedLevels = groupLevels();
 </script>
@@ -48,14 +54,14 @@
 </svelte:head>
 
 <div class="mx-auto max-w-7xl px-4 py-8">
-	{#each Object.entries(groupedLevels) as [act, layers]}
+	{#each groupedLevels as [act, layers]}
 		<section class="mb-16">
 			<h2
 				class="vcr glitch layers mb-8 border-b-2 border-red-700 pb-2 text-4xl font-extrabold text-red-600 drop-shadow-2xl"
 			>
 				<FlashGlitch>{act}</FlashGlitch>
 			</h2>
-			{#each Object.entries(layers) as [layerName, layerLevels]}
+			{#each layers as [layerName, layerLevels]}
 				<div class="mb-10">
 					<h3
 						class="vcr glitch-anim-soft mb-6 text-center text-2xl font-bold tracking-widest text-white uppercase"
@@ -68,8 +74,8 @@
 							<a
 								href="/levels/{slug}"
 								class="group animate-fade-in relative z-10 block w-full overflow-hidden rounded-md border-4 border-red-500 bg-black shadow-[4px_4px_0_#ff0000] transition-transform duration-200 hover:scale-[1.03]"
-								data-sveltekit-preload-data
 								style="animation-delay: {index * 80}ms"
+								data-sveltekit-preload-code="hover"
 							>
 								<div class="relative">
 									<img

@@ -1,18 +1,13 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/typography';
-
 @import '@skeletonlabs/skeleton';
 @import '@skeletonlabs/skeleton/optional/presets';
 @import '@skeletonlabs/skeleton/themes/nosh';
 @import '@fontsource-variable/rubik';
 
-@source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
+@plugin '@tailwindcss/typography';
+@plugin '@tailwindcss/forms';
 
-@theme {
-	--font-*: initial;
-	--font-vcr: ./static/fonts/VCR_OSD_MONO.ttf;
-	--font-broshkill: ./static/fonts/BroshKill-Regular.otf;
-}
+@source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
 
 [data-theme='nosh'] {
   --base-font-family: 'Rubik Variable', sans-serif;
@@ -57,13 +52,13 @@ body {
 
 .vcr {
 	font-family: 'VCR', monospace;
-  font-smooth: never;
+  font-display: swap;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .broshkill {
-	font-family: 'Broshkill';
+	font-family: 'Broshkill', sans-serif;
 	font-weight: 400;
 }
 
@@ -129,7 +124,6 @@ iconify-icon {
 		animation: flash-glow 6s infinite;
 		display: inline-block;
 		line-height: 1;
-		font-smooth: never;
 		-webkit-font-smoothing: none;
 		-moz-osx-font-smoothing: grayscale;
 		transform: translateZ(0);
