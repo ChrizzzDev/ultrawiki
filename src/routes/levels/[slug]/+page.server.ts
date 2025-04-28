@@ -1,7 +1,6 @@
 import type { PageServerLoad } from './$types';
 import type { APIResponse, LevelResponse } from '$lib';
 
-export const prerender = true;
 export const ssr = false;
 
 export const load: PageServerLoad = async ({ fetch, params, url }) => {

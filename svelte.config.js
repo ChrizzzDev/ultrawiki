@@ -5,9 +5,6 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
 	preprocess: sequence([vitePreprocess(), preprocessMeltUI()]),
 	kit: {
-		prerender: {
-			entries: ['*']
-		},
 		paths: {
 			base: ''
 		},

@@ -2,7 +2,7 @@ import type { APIResponse, LevelResponse } from '$lib';
 import { fetchAPI } from '$lib';
 import type { PageServerLoad } from './$types';
 
-export const prerender = true;
+export const ssr = false;
 
 export const load: PageServerLoad = async ({ url }) => {
 	const query = new URLSearchParams(url.searchParams).toString();
