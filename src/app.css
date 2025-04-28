@@ -33,13 +33,13 @@
 
 @font-face {
 	font-family: 'VCR';
-	src: url('/fonts/VCR_OSD_MONO.ttf');
+	src: url(/fonts/VCR_OSD_MONO.ttf);
 	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Broshkill';
-	src: url('/fonts/BroshKill-Regular.otf');
+	src: url(/fonts/BroshKill-Regular.otf);
 	font-display: swap;
 }
 
@@ -60,12 +60,6 @@ body {
 .broshkill {
 	font-family: 'Broshkill', sans-serif;
 	font-weight: 400;
-}
-
-iconify-icon {
-	display: inline-block;
-	width: 1em;
-	height: 1em;
 }
 
 .glitch-anim-soft {
