@@ -4,10 +4,6 @@ import db from 'db';
 import type { LevelResponse } from '$lib';
 import type { Config } from '@sveltejs/adapter-vercel';
 
-export const config: Config = {
-	runtime: 'edge'
-};
-
 export async function GET({ params, url }) {
 	const { slug } = params;
 	const searchParams = url.searchParams;

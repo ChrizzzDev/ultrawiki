@@ -5,10 +5,6 @@ import { sql } from 'kysely';
 import type { LevelResponse } from '$lib';
 import type { Config } from '@sveltejs/adapter-vercel';
 
-export const config: Config = {
-	runtime: 'edge'
-};
-
 export async function GET({ url }) {
 	const searchParams = url.searchParams;
 
